@@ -1,0 +1,49 @@
+// class polygon
+
+#include <iostream>
+#include <cstring>
+#include <cmath>
+using namespace std;
+
+class polygon {
+    public:
+        virtual double area();
+        virtual double perimeter();
+        virtual ~polygon () {}
+    };
+
+class rectangle : public polygon {
+    public:
+        rectangle();
+        double area(){
+            return a*b;
+            }
+        double perimeter() {
+            return 2*(a+b);
+            }
+        ~rectangle() {}
+    private:
+        int a,b;
+    };
+    
+    
+class triangle : public polygon {
+    private:
+        int a,b,c;
+    public:
+        triangle();
+        double area() {
+            int p=perimeter()/2;
+            return sqrt(p*(p-a)*(p-b)*(p-c));
+            }
+        double perimeter() {
+            return a+b+c;
+        }
+        ~triangle() {}
+    };
+    
+int main() 
+{
+    system ("pause");
+    return 0;
+}
