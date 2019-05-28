@@ -1,0 +1,69 @@
+// abstract class animal
+
+#include <iostream>
+using namespace std;
+
+class animal {
+    public:
+        animal() : age_(nullptr), gender_('M'), wild_(true) {}     //default constructor
+        animal(const animal& a) {                                  //copy constructor
+            age_=new unsigned short(*(a.age_));    //?
+            age_=a.age_;
+            gender_=a.gender_;
+            wild_=a.wild_;
+            } 
+        animal(unsigned short* a, char g='M', bool w=false) {      //parametrized construtor
+            age_=new unsigned short(*(a.age_)); 
+            age_=a;
+            gender_=g;
+            wild_=w;
+            }
+        animal& operator=(const animal& a){
+            if(this==&a)
+                return *this;
+            age_=new unsigned short(*(a.age_));
+            age_=a.age_;
+            gender_=a.gender_;
+            wild_=a.wild_;
+        }
+        virtual int weight(int w)=0;        //pure virtual function
+        void print_data()
+        {
+            std::cout<<"age-"<<age_<<"  gender-"<<gender_<<"  wild-"<<wild_<<std::endl;
+        }
+        ~animal() {
+            delete age_;
+            }
+    protected:
+        unsigned short* age_;
+        char gender_;
+        bool wild_;
+    
+    };
+    
+    class lion : public animal {
+    private:
+        string name_;
+    public:
+        int weight(int w) { return w; }
+        lion() : animal(), name_("Simba") {}
+        lion(const lion& l) : animal(l), name_(l.name_) {}
+        lion& operator=(const lion& l)
+        {
+            if(this == &l)
+                return *this;
+            name_=l.name_;
+            age_=new unsigned short(*(a.age_));
+            age_=l.age_;
+            gender_=l.gender_;
+            wild_=l.wild_;
+        }
+        ~lion() {}
+    };
+    
+    int main()
+    {
+        lion l;
+        l.print_data();
+        return 0;
+    }
